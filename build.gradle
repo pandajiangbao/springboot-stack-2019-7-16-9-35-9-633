@@ -40,4 +40,5 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.2'
     testCompile 'org.projectlombok:lombok:1.18.2'
     testRuntime 'org.projectlombok:lombok:1.18.2'
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
 }
