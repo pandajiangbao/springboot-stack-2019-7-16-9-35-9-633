@@ -2,6 +2,7 @@ package com.tw.apistackbase;
 
 import org.json.JSONArray;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,10 @@ public class ApiStackBaseApplicationTests {
 	private MockMvc mockMvc;
 
 	@Test
-	public void shouldReturnEmployees()throws Exception{
-		this.mockMvc.perform(get("/employees")).andDo(print()).andExpect(status().isOk()).andReturn();
+	public void shouldReturnAllEmployees()throws Exception{
+		String string=this.mockMvc.perform(get("/employees")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+		JSONArray json = new JSONArray(string);
+		Assertions.assertEquals(22,json.getJSONObject(0).getInt("age"));
 	}
 	@Test
 	public void contextLoads() {
