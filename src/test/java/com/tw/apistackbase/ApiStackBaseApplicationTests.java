@@ -42,7 +42,7 @@ public class ApiStackBaseApplicationTests {
 
 	@Test
 	public void shouldReturnAllEmployeesWithGender()throws Exception{
-		String string=this.mockMvc.perform(get("/employees?page=1&pageSize=3")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+		String string=this.mockMvc.perform(get("/employees?gender=male")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 		JSONArray json = new JSONArray(string);
 		Assertions.assertEquals(22,json.getJSONObject(0).getInt("age"));
 	}
