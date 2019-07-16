@@ -1,7 +1,9 @@
 package com.tw.apistackbase;
 
+import com.tw.apistackbase.Entity.Company;
 import com.tw.apistackbase.Entity.Employee;
 
+import com.tw.apistackbase.controller.EmployeesController;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.junit.Test;
@@ -80,6 +82,12 @@ public class ApiStackBaseApplicationTests {
 		String string=this.mockMvc.perform(get("/companies")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
 		JSONArray json = JSONArray.fromObject(string);
 		Assertions.assertEquals("alibaba",json.getJSONObject(0).getString("companyName"));
+	}
+	@Test
+	public void shouldReturnOKWhenCreateCompanies()throws Exception{
+		Company company =new Company(1,"alibaba", EmployeesController.employees.size(),EmployeesController.employees);
+		JSONObject jsonObject= JSONObject.fromObject(company);
+		this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isCreated());
 	}
 	@Test
 	public void contextLoads() {

@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
-    static List<Company> companies=new ArrayList<>();
+    public static List<Company> companies=new ArrayList<>();
     static{
         companies.add(new Company(1,"alibaba",EmployeesController.employees.size(),EmployeesController.employees));
         companies.add(new Company(2,"apple",EmployeesController.employees.size(),EmployeesController.employees));
