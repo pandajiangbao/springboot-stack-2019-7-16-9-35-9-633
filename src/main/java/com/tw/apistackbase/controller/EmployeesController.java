@@ -30,7 +30,12 @@ public class EmployeesController {
             @RequestParam(required = false) Integer pageSize,
             @RequestParam(required = false) String gender) {
         if(page!=null&&pageSize!=null){
-            return ResponseEntity.ok().body(employees.subList((page-1)*pageSize,page*pageSize));
+            int endIndex=page*pageSize;
+            if ((page-1)*pageSize>employees.size()) return ResponseEntity.badRequest().build();
+            if (page*pageSize>employees.size()){
+                endIndex=employees.size();
+            }
+            return ResponseEntity.ok().body(employees.subList((page-1)*pageSize,endIndex));
         }
         if (gender!=null&&gender.equals("male")){
             return ResponseEntity.ok().body(employees.stream().filter(item-> item.getGender().equals("male")).collect(Collectors.toList()));

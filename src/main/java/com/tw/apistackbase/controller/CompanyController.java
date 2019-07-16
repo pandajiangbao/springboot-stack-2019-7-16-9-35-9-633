@@ -1,14 +1,12 @@
 package com.tw.apistackbase.controller;
 
 import com.tw.apistackbase.Entity.Company;
-import com.tw.apistackbase.Entity.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
@@ -29,7 +27,12 @@ public class CompanyController {
             @RequestParam(required = false) Integer page,
             @RequestParam(required = false) Integer pageSize) {
         if(page!=null&&pageSize!=null){
-            return ResponseEntity.ok().body(companies.subList((page-1)*pageSize,page*pageSize));
+            int endIndex=page*pageSize;
+            if ((page-1)*pageSize>companies.size()) return ResponseEntity.badRequest().build();
+            if (page*pageSize>companies.size()){
+                endIndex=companies.size();
+            }
+            return ResponseEntity.ok().body(companies.subList((page-1)*pageSize,endIndex));
         }
         return ResponseEntity.ok().body(companies);
     }
