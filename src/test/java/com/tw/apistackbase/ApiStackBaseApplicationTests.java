@@ -16,8 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -65,6 +64,17 @@ public class ApiStackBaseApplicationTests {
 		this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isCreated());
 	}
 
+	@Test
+	public void shouldReturnOKWhenDeleteEmployee()throws Exception{
+		this.mockMvc.perform(delete("/employees/1")).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	public void shouldReturnOKWhenPutEmployee()throws Exception{
+		Employee employee = new Employee(3, "milo", 34, "male", 12125);
+		JSONObject jsonObject= JSONObject.fromObject(employee);
+		this.mockMvc.perform(put("/employees/3").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isOk());
+	}
 	@Test
 	public void contextLoads() {
 		
