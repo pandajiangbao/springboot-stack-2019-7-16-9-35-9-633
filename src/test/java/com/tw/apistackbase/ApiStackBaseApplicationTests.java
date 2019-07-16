@@ -84,10 +84,15 @@ public class ApiStackBaseApplicationTests {
 		Assertions.assertEquals("alibaba",json.getJSONObject(0).getString("companyName"));
 	}
 	@Test
-	public void shouldReturnOKWhenCreateCompanies()throws Exception{
+	public void shouldReturnOKWhenCreateCompany()throws Exception{
 		Company company =new Company(1,"alibaba", EmployeesController.employees.size(),EmployeesController.employees);
 		JSONObject jsonObject= JSONObject.fromObject(company);
-		this.mockMvc.perform(post("/employees").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isCreated());
+		this.mockMvc.perform(post("/companies").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isCreated());
+	}
+
+	@Test
+	public void shouldReturnOKWhenDeleteCompany()throws Exception{
+		this.mockMvc.perform(delete("/companies/1")).andDo(print()).andExpect(status().isOk());
 	}
 	@Test
 	public void contextLoads() {
