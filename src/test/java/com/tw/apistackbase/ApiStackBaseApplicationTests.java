@@ -94,6 +94,13 @@ public class ApiStackBaseApplicationTests {
 	public void shouldReturnOKWhenDeleteCompany()throws Exception{
 		this.mockMvc.perform(delete("/companies/1")).andDo(print()).andExpect(status().isOk());
 	}
+
+	@Test
+	public void shouldReturnOKWhenPutCompany()throws Exception{
+		Company company =new Company(3,"alibaba", EmployeesController.employees.size(),EmployeesController.employees);
+		JSONObject jsonObject= JSONObject.fromObject(company);
+		this.mockMvc.perform(put("/companies/3").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isOk());
+	}
 	@Test
 	public void contextLoads() {
 		
