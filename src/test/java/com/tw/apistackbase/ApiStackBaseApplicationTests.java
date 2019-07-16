@@ -54,6 +54,12 @@ public class ApiStackBaseApplicationTests {
 		JSONObject json = new JSONObject(string);
 		Assertions.assertEquals("panda",json.getString("name"));
 	}
+
+	@Test
+	public void shouldReturnOKWhenCreateEmployee()throws Exception{
+		this.mockMvc.perform(get("/employees/1")).andDo(print()).andExpect(status().isOk());
+	}
+
 	@Test
 	public void contextLoads() {
 		
