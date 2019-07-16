@@ -1,14 +1,34 @@
 package com.tw.apistackbase;
 
+import org.json.JSONArray;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@RunWith(SpringRunner.class)
+@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class ApiStackBaseApplicationTests {
+	@Autowired
+	private MockMvc mockMvc;
 
+	@Test
+	public void shouldReturnEmployees()throws Exception{
+		this.mockMvc.perform(get("/employees")).andDo(print()).andExpect(status().isOk()).andReturn();
+	}
 	@Test
 	public void contextLoads() {
 		
