@@ -76,6 +76,12 @@ public class ApiStackBaseApplicationTests {
 		this.mockMvc.perform(put("/employees/3").contentType(MediaType.APPLICATION_PROBLEM_JSON_UTF8).content(jsonObject.toString())).andDo(print()).andExpect(status().isOk());
 	}
 	@Test
+	public void shouldReturnAllCompanies()throws Exception{
+		String string=this.mockMvc.perform(get("/companies")).andDo(print()).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+		JSONArray json = JSONArray.fromObject(string);
+		Assertions.assertEquals("alibaba",json.getJSONObject(0).getString("companyName"));
+	}
+	@Test
 	public void contextLoads() {
 		
 	}
